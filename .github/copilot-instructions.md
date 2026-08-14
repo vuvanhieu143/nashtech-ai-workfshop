@@ -4,143 +4,111 @@
 
 URL shortener:
 
-* PHP 8.4 + Slim Framework
-* OAuth2 authentication
-* SQLite
-* Tailwind CSS
-* Alpine.js
+- PHP 8.4 + Slim Framework
+- OAuth2 authentication
+- SQLite
+- Tailwind CSS
+- Alpine.js
 
-## SDLC
+## Workflow
 
 All work follows:
 
-**Requirements → Design → Planning → Implementation → Verify/Review → Human Gate**
+**Requirements → Design → Planning → Implementation → Verify → Review → Human Gate**
 
-Detailed workflow:
+Full workflow, gates, failure routing, Ralph rules, and Definition of Done:
 
 `docs/SDLC_WORKFLOW.md`
 
-Never:
+Read that file when workflow details are required. Do not duplicate or redefine its rules here.
 
-* skip an SDLC stage;
-* implement against an unapproved upstream artifact;
-* change approved scope without returning to the affected stage;
-* treat automated approval as human approval.
+## Stage Routing
 
-## Stage Artifacts
+| Stage | Persona | Primary Output |
+|---|---|---|
+| 1 Requirements | `agents/ba.agent.md` | `docs/requirements/US-XX-<slug>.vN.md` |
+| 2 Design | `agents/architect.agent.md` | `docs/design/US-XX-<slug>.vN.md` |
+| 3 Planning | `agents/architect.agent.md` | `docs/planning/US-XX-<slug>.vN.md` |
+| 4 Implementation | `agents/developer.agent.md` | Source + tests |
+| 5 Verify | `agents/tester.agent.md` | Verification evidence |
+| 6 Review | `agents/reviewer.agent.md` | Review result |
+| 7 Human Gate | Human | Final decision |
 
-| Stage          | Artifact                        | Persona                     |
-| -------------- | ------------------------------- | --------------------------- |
-| Requirements   | `docs/requirements/US-XX.vN.md` | `agents/ba.agent.md`        |
-| Design         | `docs/design/US-XX.vN.md`       | `agents/architect.agent.md` |
-| Planning       | `docs/planning/US-XX.vN.md`     | `agents/architect.agent.md` |
-| Implementation | `src/`, `tests/`, `public/`     | `agents/developer.agent.md` |
-| Review         | source + tests                  | `agents/reviewer.agent.md`  |
+Use the persona for the current stage. Do not perform another stage's work unless the workflow explicitly routes back to it.
 
-Use the appropriate persona and applicable skill.
+## Core Rules
 
-## Artifacts
+- Never bypass an SDLC gate.
+- Never implement against an unapproved upstream artifact.
+- Never silently change approved scope, requirements, design, or planning.
+- Never overwrite or delete a previous artifact version.
+- Create `v1` first, then `v2`, `v3`, etc. for revisions.
+- Never treat `APPROVED`, passing tests, or `REVIEW_PASSED` as human acceptance.
+- Only a human may set `ACCEPTED`.
+- Keep changes within the approved planning task.
+- Prefer the smallest change that solves the task.
+- Do not weaken, remove, or bypass tests.
+- Do not perform unrelated refactoring.
 
-* Start every artifact at `v1`.
-* Never overwrite or delete previous versions.
-* Revisions create a new version.
-* Every artifact requires Revision History.
-* Record audits in `docs/stage-scores.md`.
-* Score >= 80/100 → `APPROVED`.
-* Score < 80/100 → `REJECTED`.
-* Update `docs/progress.md` with the latest approved state.
+## Context
 
-If an approved upstream artifact changes, re-audit affected downstream artifacts before implementation continues.
+Start with the smallest relevant context:
+
+1. Current approved artifact.
+2. Relevant upstream artifacts.
+3. Relevant source files.
+4. Relevant tests.
+5. Applicable skill.
+6. Current state in `docs/progress.md`.
+
+Do not scan the entire repository unnecessarily.
+
+Repository artifacts are the source of truth; chat history is not.
+
+## Skills
+
+Load a skill only when modifying its area:
+
+| Change | Skill |
+|---|---|
+| PHP / `src/` / `public/index.php` | `.github/skills/php-slim-clean-arch/SKILL.md` |
+| JS / Alpine.js | `.github/skills/js-alpine-reactive/SKILL.md` |
+| Views / Tailwind CSS | `.github/skills/html-tailwind-ui/SKILL.md` |
+| Tests / E2E | `.github/skills/playwright-accessible-e2e/SKILL.md` |
+
+## State and Audit
+
+Use:
+
+- `docs/progress.md` — current workflow state
+- `docs/stage-scores.md` — stage audit scores
+- `docs/symbol-map.md` — architecture references
+- `docs/SDLC_WORKFLOW.md` — workflow source of truth
+
+Keep state updates small and factual.
 
 ## Implementation
 
 Before coding:
 
-1. Identify the approved planning task.
-2. Read the approved requirements and design.
-3. Inspect relevant existing code and tests.
+1. Confirm the current stage and approved planning task.
+2. Read the approved requirements, design, and planning artifacts.
+3. Inspect only relevant code and tests.
 4. Load applicable skills.
-5. Make the smallest change required.
+5. Make the smallest required change.
 6. Add or update tests.
-7. Run relevant verification.
-
-Do not implement unrelated functionality or refactoring.
-
-## Ralph Loop
-
-After Planning approval, implementation may use the bounded Ralph loop:
-
-**Implement → Verify → Review → Fix → Repeat**
-
-Rules:
-
-* One planning task at a time.
-* Fix the smallest root cause.
-* Re-run failed verification after every fix.
-* Run relevant regression tests.
-* Do not weaken, remove, or bypass tests.
-* Do not expand scope.
-* Maximum 5 iterations by default.
-* Stop and request human direction if the loop is exhausted, non-progressing, or discovers an upstream problem.
-
-Ralph cannot approve requirements, design, planning, scope changes, security exceptions, or final completion.
-
-## Human Gates
-
-Explicit human approval is required:
-
-1. Requirements → Design
-2. Design → Planning
-3. Planning → Implementation
-4. Ralph → Completion
-5. Final PR → Merge
-
-Never infer human approval from passing tests, scores, agent output, or chat context.
-
-## Skills
-
-Load the applicable skill when modifying its area:
-
-| Change                            | Skill                                               |
-| --------------------------------- | --------------------------------------------------- |
-| PHP / `src/` / `public/index.php` | `.github/skills/php-slim-clean-arch/SKILL.md`       |
-| JS / Alpine.js                    | `.github/skills/js-alpine-reactive/SKILL.md`        |
-| Views / Tailwind CSS              | `.github/skills/html-tailwind-ui/SKILL.md`          |
-| Tests / E2E                       | `.github/skills/playwright-accessible-e2e/SKILL.md` |
+7. Hand off to Stage 5 Verify.
 
 ## Commits
 
-* Keep commits small and focused.
-* Prefer one commit per completed planning task.
-* Do not mix unrelated refactoring, formatting, dependency updates, or cleanup with feature work.
-
-## Source of Truth
-
-Project decisions must exist in repository artifacts.
-
-Use:
-
-* `docs/requirements/` — requirements
-* `docs/design/` — technical design
-* `docs/planning/` — implementation plan
-* `docs/stage-scores.md` — audits
-* `docs/progress.md` — current state
-* `docs/symbol-map.md` — architecture references
-* `docs/SDLC_WORKFLOW.md` — workflow and gates
-
-The repository must remain understandable without previous chat history.
+- Keep commits small and focused.
+- Prefer one commit per completed planning task.
+- Do not mix unrelated refactoring, formatting, dependency updates, or cleanup with feature work.
 
 ## Completion
 
-Do not report a feature as complete until:
+Follow the Definition of Done in:
 
-* Requirements approved
-* Design approved
-* Planning approved
-* Implementation complete
-* Tests pass
-* Verification passes
-* Review complete
-* Ralph loop successfully exits
-* Human approves completion
-* `docs/progress.md` is updated
+`docs/SDLC_WORKFLOW.md`
+
+Do not declare a story complete or `ACCEPTED` without the required Human Gate.
