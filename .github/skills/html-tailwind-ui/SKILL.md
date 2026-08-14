@@ -1,34 +1,140 @@
----
-name: html-tailwind-ui
-description: Tailwind CSS layout & styling conventions for this project's HTML views
----
+# HTML + Tailwind UI
 
-# Tailwind UI Conventions
+Use this skill when modifying server-rendered HTML, Tailwind CSS, or Alpine.js markup in the URL shortener UI.
 
-**Trigger:** any change under `public/views/` or `resources/css/`.
+## Principles
 
-## Utility-first, no custom CSS unless necessary
+- Build simple, accessible interfaces.
+- Prefer semantic HTML.
+- Use Tailwind utility classes consistently with the existing project.
+- Keep markup readable.
+- Avoid unnecessary custom CSS.
+- Do not introduce a new UI framework.
 
-Compose Tailwind utility classes directly in markup. Only add a rule to `resources/css/app.css` (via `@layer components`) when the same utility combination repeats 3+ times across views — extract a class then, not before.
+## Accessibility
 
-## Layout
+Use semantic elements and accessible names.
 
-- Page shell: `max-w-3xl mx-auto px-4` for content-focused pages (this app has no dense dashboards, keep it narrow and readable).
-- Stack spacing with `space-y-*` on the parent rather than margin on every child.
-- Responsive: design mobile-first (unprefixed classes = mobile), add `sm:`/`md:` only where the layout genuinely needs to change on wider screens.
+Prefer:
+
+```html
+<button type="submit">Create short URL</button>
+```
+
+over:
+
+```html
+<div class="button">Create short URL</div>
+```
+
+Form controls must have associated labels.
+
+Interactive elements must be keyboard accessible.
+
+Do not remove visible focus indicators without providing an equivalent accessible focus state.
+
+## Tailwind
+
+Prefer existing project utilities and patterns.
+
+Keep responsive behavior explicit where required:
+
+```html
+<div class="flex flex-col gap-4 md:flex-row">
+```
+
+Avoid excessive arbitrary values when existing Tailwind utilities are sufficient.
+
+Avoid duplicating long class lists when an existing project component/pattern already provides the same behavior.
+
+## Build Configuration
+
+Do not assume a particular Tailwind configuration file exists.
+
+Before changing Tailwind configuration:
+
+1. Inspect the existing build setup.
+2. Identify where Tailwind sources/content are configured.
+3. Change the existing configuration rather than introducing a second configuration mechanism.
+
+Keep generated CSS limited to styles actually used by the application.
 
 ## Forms
 
-- Inputs: `border rounded px-3 py-2 w-full focus:outline-none focus:ring-2`
-- Primary action button: `bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 disabled:opacity-50` — bind `disabled` to the Alpine `loading` state from `js-alpine-reactive`.
-- Error text: `text-red-600 text-sm mt-1`, shown via `x-show="error"`.
+Use:
 
-## Build
+- semantic `<form>` elements;
+- `<label>` elements;
+- appropriate input types;
+- useful validation messages;
+- accessible error association.
 
-- `tailwind.config.js` content globs must cover `public/views/**/*.html` and `resources/js/**/*.js` — anything outside those won't be scanned and its classes get purged.
-- Target: keep the built CSS under 15KB (per `tailwind.config.js` purge config) — this is a workshop demo, don't add plugins/utilities you're not using.
+Example:
 
-## What to avoid
+```html
+<label for="long-url">Long URL</label>
+<input
+    id="long-url"
+    name="long_url"
+    type="url"
+    required
+    aria-describedby="long-url-error"
+>
+<p id="long-url-error" role="alert"></p>
+```
 
-- No inline `style="..."` attributes — everything through Tailwind classes.
-- No component library (DaisyUI, Flowbite, etc.) — adds setup time and a dependency the mob doesn't need to learn mid-workshop.
+## Responsive UI
+
+Design for small screens first.
+
+Verify important flows at:
+
+- mobile width;
+- desktop width.
+
+Do not add layout complexity without a requirement.
+
+## Alpine.js
+
+Use Alpine only for local reactive behavior that cannot be handled cleanly by normal HTML/server rendering.
+
+Keep state local and minimal.
+
+Do not duplicate server-side business logic in Alpine.
+
+For Alpine-specific patterns, use:
+
+`.github/skills/js-alpine-reactive/SKILL.md`
+
+## Security
+
+Escape user-controlled output.
+
+Do not insert untrusted values into HTML using unsafe DOM APIs.
+
+Do not expose:
+
+- secrets;
+- OAuth tokens;
+- session identifiers;
+- internal configuration.
+
+## UI Verification
+
+For user-visible changes:
+
+- verify the relevant acceptance criteria;
+- verify keyboard accessibility;
+- verify important responsive states;
+- use Playwright for browser-level behavior when required by the story.
+
+Do not add UI tests for behavior outside the approved scope.
+
+## Guardrails
+
+- Do not introduce another CSS framework.
+- Do not assume nonexistent configuration files.
+- Do not rewrite unrelated UI.
+- Do not add unnecessary custom CSS.
+- Do not move business logic into templates or Alpine.
+- Do not weaken accessibility to simplify implementation.

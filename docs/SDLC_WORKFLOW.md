@@ -44,10 +44,10 @@ For every stage:
 1. **Orient** — identify the story, current approved artifact, scope, and relevant files.
 2. **Produce** — create or revise only the stage artifact.
 3. **Audit** — apply the persona checklist and record the score/findings.
-4. **Human gate** — a human explicitly approves before entering the next gated stage.
+4. **Gate** — apply the gate defined for the current stage. Human approval is required only where the workflow explicitly defines a Human Gate.
 5. **Record** — update progress and artifact status.
 
-Agents must stop at a human gate.
+Agents must stop whenever the workflow requires a human gate.
 
 Do not infer approval from:
 
