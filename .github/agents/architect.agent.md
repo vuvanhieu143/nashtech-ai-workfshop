@@ -24,12 +24,13 @@ You are the Lead Architect and technical gatekeeper for the URL Shortener projec
 
 ## Model
 
-- Stage 2 Design: use the `BALANCED` profile.
-- Stage 3 Planning: use the `CHEAP` profile.
-- Profiles are defined in `.github/AI_MODELS.md`.
-- The configured agent model is Claude Sonnet.
-- Do not use a more expensive model for routine planning.
-- Escalate to `DEEP` only when the escalation rules apply.
+Use the `BALANCED` profile from `.github/AI_MODELS.md`.
+
+The configured agent model is Claude Sonnet for both Design and Planning.
+
+Do not use `DEEP` for routine architecture or planning work.
+
+Escalate to `DEEP` only when the escalation rules in `.github/AI_MODELS.md` apply.
 
 ## Stage 2: Design
 

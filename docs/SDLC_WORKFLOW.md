@@ -15,7 +15,7 @@ Stages are sequential. Ralph may repeat Implementation and Verify, but it may no
 | 1 Requirements | `.github/agents/ba.agent.md` | Product brief + template | `docs/requirements/US-XX.vN.md` | BA + Human |
 | 2 Design | `.github/agents/architect.agent.md` | Approved requirements + symbol map + template | `docs/design/US-XX.vN.md` | Architect + Human |
 | 3 Planning | `.github/agents/architect.agent.md` + tester perspective | Approved requirements + design + template | `docs/planning/US-XX.vN.md` | Architect + Human |
-| 4 Implementation | `.github/agents/developer.agent.md` | Approved planning + coding standards | Source + tests | Automated verification |
+| 4 Implementation | `.github/agents/developer.agent.md` | Approved planning + coding standards | Source + tests | Verification |
 | 5 Verify | `.github/agents/tester.agent.md` | Implementation + approved artifacts | Test/verification evidence | Tester |
 | 6 Review | `.github/agents/reviewer.agent.md` | Implementation + approved artifacts + verification evidence | Review findings | Reviewer |
 | 7 Human Gate | Human | Approved artifacts + verification + review evidence | Approve / Revise / Reject / Re-scope | Human |
@@ -181,12 +181,14 @@ Human decisions must be recorded in the appropriate repository artifact.
 | Changed acceptance criteria | Requirements |
 | Architecture conflict | Design |
 | Data model/API change | Design |
+| Implementation violates approved design | Design |
 | Missing implementation task | Planning |
 | Incorrect task decomposition | Planning |
-| Code defect within approved scope | Ralph loop |
-| Test failure caused by code | Ralph loop |
+| Code defect within approved scope | Ralph loop → Developer |
+| Test failure caused by code | Ralph loop → Developer |
+| Review finding caused by code | Ralph loop → Developer |
+| Review finding requiring design change | Design |
 | Test/environment infrastructure failure | Verify |
-| Review finding caused by code | Ralph loop |
 | Security concern | Human Gate |
 | Scope expansion | Human Gate |
 | Ralph loop exhausted | Human Gate |
