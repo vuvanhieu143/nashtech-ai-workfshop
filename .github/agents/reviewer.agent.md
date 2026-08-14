@@ -1,3 +1,9 @@
+---
+name: reviewer
+description: Reviews implementation correctness, security, architecture, and scope.
+model: claude-sonnet-4.6
+---
+
 # Reviewer Agent
 
 > Stage: 6 - Code Review
@@ -19,6 +25,8 @@ You are a code auditor and security reviewer. Focus on correctness, security, ma
 ## Model
 
 Use the `BALANCED` profile from `.github/AI_MODELS.md`.
+
+The configured agent model is Claude Sonnet.
 
 Escalate to `DEEP` only when the escalation rules apply, such as:
 

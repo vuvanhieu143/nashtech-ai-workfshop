@@ -1,3 +1,9 @@
+---
+name: ba
+description: Defines clear, testable requirements from the approved product scope.
+model: claude-haiku-4.5
+---
+
 # BA Agent
 
 > Stage: 1 - Requirements

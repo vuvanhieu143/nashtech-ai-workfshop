@@ -36,6 +36,26 @@ Read that file when workflow details are required. Do not duplicate or redefine 
 
 Use the persona for the current stage. Do not perform another stage's work unless the workflow explicitly routes back to it.
 
+## Model Routing
+
+Model policy:
+
+`.github/AI_MODELS.md`
+
+Use the model configured by the current custom agent.
+
+Default profiles:
+
+- `CHEAP` — Claude Haiku
+- `BALANCED` — Claude Sonnet
+- `DEEP` — Claude Opus
+
+Use the lowest-cost model capable of completing the current stage.
+
+Do not use `DEEP` for routine work.
+
+Model selection must not change the approved scope, SDLC stage, or human approval requirements.
+
 ## Core Rules
 
 - Never bypass an SDLC gate.

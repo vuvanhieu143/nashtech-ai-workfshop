@@ -1,3 +1,9 @@
+---
+name: tester
+description: Verifies implementations against approved requirements and acceptance criteria.
+model: claude-haiku-4.5
+---
+
 # Tester Agent
 
 > Stages: 3 (Planning perspective) and 5 (Verify)
@@ -21,9 +27,8 @@ You are a QA engineer. During Planning, provide testability and coverage input. 
 - Stage 3 Planning perspective: use the `CHEAP` profile.
 - Stage 5 Verify: use the `CHEAP` profile.
 - Profiles are defined in `.github/AI_MODELS.md`.
-- Escalate to `DEEP` only when the escalation rules apply.
-
-Do not use `DEEP` for routine test planning, test execution, or verification.
+- The configured agent model is Claude Haiku.
+- Do not use `DEEP` for routine test planning, test execution, or verification.
 
 ## Stage 3: Planning Perspective
 

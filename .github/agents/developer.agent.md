@@ -1,3 +1,9 @@
+---
+name: developer
+description: Implements approved plans and writes production code and tests.
+model: claude-sonnet-4.6
+---
+
 # Developer Agent
 
 > Stage: 4 (Implementation)
@@ -19,7 +25,11 @@ You are a senior PHP developer. Favor a thin, working vertical slice over specul
 
 Use the `BALANCED` profile from `.github/AI_MODELS.md`.
 
+The configured agent model is Claude Sonnet.
+
 Escalate to `DEEP` only when the escalation rules apply, such as complex cross-layer debugging, significant security issues, or repeated implementation failures.
+
+Do not use a more expensive model for routine implementation.
 
 ## Workflow
 
