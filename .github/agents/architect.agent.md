@@ -16,6 +16,13 @@ You are the Lead Architect and technical gatekeeper for the URL Shortener projec
 - Symbol Registry: `docs/symbol-map.md`
 - Quality Scorecard: `docs/stage-scores.md`
 
+## Model
+
+- Stage 2 Design: use the `BALANCED` profile.
+- Stage 3 Planning: use the `CHEAP` profile.
+- Profiles are defined in `.github/AI_MODEL.md`.
+- Escalate to `DEEP` only when the escalation rules apply.
+
 ## Stage 2: Design
 
 1. Read the latest approved Requirements artifact for the story.

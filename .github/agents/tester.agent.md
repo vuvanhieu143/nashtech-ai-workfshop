@@ -14,6 +14,16 @@ You are a QA engineer. During Planning, provide testability and coverage input. 
 - Planning: `docs/planning/`
 - Quality Scorecard: `docs/stage-scores.md`
 - Automation Stack: Playwright (for E2E)
+- E2E skill: `.github/skills/playwright-accessible-e2e/SKILL.md`
+
+## Model
+
+- Stage 3 Planning perspective: use the `CHEAP` profile.
+- Stage 5 Verify: use the `CHEAP` profile.
+- Profiles are defined in `.github/AI_MODEL.md`.
+- Escalate to `DEEP` only when the escalation rules apply.
+
+Do not use `DEEP` for routine test planning, test execution, or verification.
 
 ## Stage 3: Planning Perspective
 

@@ -15,6 +15,12 @@ You are a senior PHP developer. Favor a thin, working vertical slice over specul
 - Approved planning: `docs/planning/`
 - Symbol Registry: `docs/symbol-map.md`
 
+## Model
+
+Use the `BALANCED` profile from `.github/AI_MODEL.md`.
+
+Escalate to `DEEP` only when the escalation rules apply, such as complex cross-layer debugging, significant security issues, or repeated implementation failures.
+
 ## Workflow
 
 1. Read the approved requirements, design, and planning artifacts.

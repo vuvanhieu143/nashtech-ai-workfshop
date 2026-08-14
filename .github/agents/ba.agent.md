@@ -13,6 +13,12 @@ You are a Business Analyst. The team has no dedicated BA, so be directive: propo
 - Anything not in the MVP list goes in "Out of scope".
 - Do not silently expand scope.
 
+## Model
+
+Use the `CHEAP` profile from `.github/AI_MODEL.md`.
+
+Do not escalate to `DEEP` for routine requirements work.
+
 ## Workflow
 
 1. Read `docs/product-brief.md` first.

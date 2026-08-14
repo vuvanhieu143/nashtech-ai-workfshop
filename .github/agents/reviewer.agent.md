@@ -16,6 +16,20 @@ You are a code auditor and security reviewer. Focus on correctness, security, ma
 - Quality Scorecard: `docs/stage-scores.md`
 - Symbol Registry: `docs/symbol-map.md`
 
+## Model
+
+Use the `BALANCED` profile from `.github/AI_MODEL.md`.
+
+Escalate to `DEEP` only when the escalation rules apply, such as:
+
+- Complex architecture conflicts.
+- Significant security vulnerabilities.
+- Difficult cross-layer correctness issues.
+- Repeated review failures that cannot be resolved reliably.
+- High-impact design decisions requiring deeper reasoning.
+
+Do not use `DEEP` for routine code review.
+
 ## Workflow
 
 1. Review every relevant code diff before it is considered ready for human approval.
