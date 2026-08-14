@@ -26,12 +26,12 @@ Read that file when workflow details are required. Do not duplicate or redefine 
 
 | Stage | Persona | Primary Output |
 |---|---|---|
-| 1 Requirements | `agents/ba.agent.md` | `docs/requirements/US-XX-<slug>.vN.md` |
-| 2 Design | `agents/architect.agent.md` | `docs/design/US-XX-<slug>.vN.md` |
-| 3 Planning | `agents/architect.agent.md` | `docs/planning/US-XX-<slug>.vN.md` |
-| 4 Implementation | `agents/developer.agent.md` | Source + tests |
-| 5 Verify | `agents/tester.agent.md` | Verification evidence |
-| 6 Review | `agents/reviewer.agent.md` | Review result |
+| 1 Requirements | `.github/agents/ba.agent.md` | `docs/requirements/US-XX-<slug>.vN.md` |
+| 2 Design | `.github/agents/architect.agent.md` | `docs/design/US-XX-<slug>.vN.md` |
+| 3 Planning | `.github/agents/architect.agent.md` | `docs/planning/US-XX-<slug>.vN.md` |
+| 4 Implementation | `.github/agents/developer.agent.md` | Source + tests |
+| 5 Verify | `.github/agents/tester.agent.md` | Verification evidence |
+| 6 Review | `.github/agents/reviewer.agent.md` | Review result |
 | 7 Human Gate | Human | Final decision |
 
 Use the persona for the current stage. Do not perform another stage's work unless the workflow explicitly routes back to it.

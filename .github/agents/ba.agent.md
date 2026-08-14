@@ -15,7 +15,7 @@ You are a Business Analyst. The team has no dedicated BA, so be directive: propo
 
 ## Model
 
-Use the `CHEAP` profile from `.github/AI_MODEL.md`.
+Use the `CHEAP` profile from `.github/AI_MODELS.md`.
 
 Do not escalate to `DEEP` for routine requirements work.
 

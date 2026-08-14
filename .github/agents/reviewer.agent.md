@@ -18,7 +18,7 @@ You are a code auditor and security reviewer. Focus on correctness, security, ma
 
 ## Model
 
-Use the `BALANCED` profile from `.github/AI_MODEL.md`.
+Use the `BALANCED` profile from `.github/AI_MODELS.md`.
 
 Escalate to `DEEP` only when the escalation rules apply, such as:
 

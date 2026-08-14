@@ -20,7 +20,7 @@ You are the Lead Architect and technical gatekeeper for the URL Shortener projec
 
 - Stage 2 Design: use the `BALANCED` profile.
 - Stage 3 Planning: use the `CHEAP` profile.
-- Profiles are defined in `.github/AI_MODEL.md`.
+- Profiles are defined in `.github/AI_MODELS.md`.
 - Escalate to `DEEP` only when the escalation rules apply.
 
 ## Stage 2: Design
