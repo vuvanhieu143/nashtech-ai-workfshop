@@ -1,74 +1,124 @@
 # Copilot Instructions
 
 ## Project
-URL shortener. PHP 8.4 (Slim framework) backend, OAuth2 auth, SQLite storage, Tailwind + Alpine.js frontend.
 
----
+URL shortener:
 
-## 1. SDLC Pipeline & Stage Routing
+- PHP 8.4 + Slim Framework
+- OAuth2 authentication
+- SQLite
+- Tailwind CSS
+- Alpine.js
 
-| SDLC Stage | Persona Agent | Inputs (Reads From) | Outputs (Writes To) | Template Required |
-| :--- | :--- | :--- | :--- | :--- |
-| **Stage 1: Requirements** | `agents/ba.agent.md` | `docs/product-brief.md` | `docs/requirements/US-XX.md` | `docs/templates/REQUIREMENTS.md` |
-| **Stage 2: Design** | `agents/developer.agent.md` | `docs/requirements/US-XX.md`<br>`docs/symbol-map.md` | `docs/design/US-XX.md` | `docs/templates/DESIGN.md` |
-| **Stage 3: Planning** | `agents/tester.agent.md` | `docs/requirements/US-XX.md`<br>`docs/design/US-XX.md` | `docs/planning/US-XX.md` | `docs/templates/PLANNING.md` |
-| **Stage 4: Implementation** | `agents/developer.agent.md`<br>`agents/reviewer.agent.md` | `docs/planning/US-XX.md`<br>`docs/CODING_STANDARDS.md` | `src/`, `tests/`, `public/` | Checklist in `PLANNING.md` |
+## SDLC
 
----
+All features MUST follow:
 
-## 2. Stage Quality Gates & State Machine Policy
+Requirements → Design → Planning → Implementation
 
-1. **Sequential Execution:** Features MUST progress strictly through `Stage 1 ➔ Stage 2 ➔ Stage 3 ➔ Stage 4`. Direct implementation without prior stage artifacts is strictly prohibited.
-2. **Quality Gate Rule ($\ge 80/100$):**
-   - An artifact must be evaluated against its stage criteria and receive a score of **$\ge 80/100$** in `docs/stage-scores.md` to pass the gate.
-   - If a stage scores **$< 80/100$**, the agent must revise the artifact before advancing.
-3. **State Machine Updates:** Upon passing a stage gate, the agent must update the status in `docs/progress.md`.
+Never skip a stage or implement against an unapproved upstream artifact.
 
----
+Detailed workflow:
+`docs/SDLC_WORKFLOW.md`
 
-## 3. How to Switch Persona & Token Context System
+## Stage Artifacts
 
-Persona files are plain Markdown to maintain tool independence. When moving to a new SDLC stage:
+| Stage | Read | Write | Auditor |
+|---|---|---|---|
+| Requirements | `docs/product-brief.md`, template | `docs/requirements/US-XX.vN.md` | `agents/ba.agent.md` |
+| Design | approved requirements, `docs/symbol-map.md`, template | `docs/design/US-XX.vN.md` | `agents/architect.agent.md` |
+| Planning | approved requirements + design, template | `docs/planning/US-XX.vN.md` | `agents/architect.agent.md` |
+| Implementation | approved planning, coding standards | `src/`, `tests/`, `public/` | `agents/reviewer.agent.md` |
 
-1. **Start a new chat session** to prevent persona framing leakage.
-2. Reference the role file first: `#file:agents/<role>.agent.md`.
-3. Provide scoped context pointers ONLY for the target stage:
+Use the appropriate persona file from `agents/`.
 
-```text
-# Requirements Stage Example:
-#file:agents/ba.agent.md #file:docs/product-brief.md #file:docs/templates/REQUIREMENTS.md
-Draft requirements for US-01 following the template.
+## Artifact Rules
 
-# Technical Design Stage Example:
-#file:agents/developer.agent.md #file:docs/requirements/US-01.md #file:docs/templates/DESIGN.md
-Draft technical design for US-01 following the template.
-```
+- Start every artifact at `v1`.
+- Never overwrite or delete previous versions.
+- Revisions create a new version.
+- Every artifact requires Revision History.
+- Record audit results in `docs/stage-scores.md`.
+- Score >= 80/100 → `APPROVED`.
+- Score < 80/100 → `REJECTED`; create the next version and address all feedback.
+- Update `docs/progress.md` with the latest approved version.
 
----
+If an approved upstream requirement/design changes, create a new version and re-audit affected downstream artifacts before changing code.
 
-## 4. Context Pointer System (Token Guardrails)
+## Context Guardrails
 
-Do **NOT** index or read the entire repository. Read ONLY the explicit stage inputs:
-* **Stage 1:** Read `docs/product-brief.md` & `docs/templates/REQUIREMENTS.md`. Write to `docs/requirements/`.
-* **Stage 2:** Read `docs/requirements/US-XX.md`, `docs/symbol-map.md`, & `docs/templates/DESIGN.md`. Write to `docs/design/`.
-* **Stage 3:** Read `docs/requirements/US-XX.md`, `docs/design/US-XX.md`, & `docs/templates/PLANNING.md`. Write to `docs/planning/`.
-* **Stage 4:** Read `docs/planning/US-XX.md`. Check off items `[x]` as code/tests are completed.
+Do NOT scan or index the entire repository unnecessarily.
 
----
+Read only:
 
-## 5. Skills Reference
+1. The current stage's required artifacts.
+2. The relevant source files.
+3. Relevant tests.
+4. Applicable skills.
 
-| Skill File | Context Trigger |
-| :--- | :--- |
-| `.github/skills/php-slim-clean-arch/SKILL.md` | Any change under `src/`, `public/index.php`, or PHP interfaces |
-| `.github/skills/js-alpine-reactive/SKILL.md` | Any change under `resources/js/` or inline `x-data` |
-| `.github/skills/html-tailwind-ui/SKILL.md` | Any change under `public/views/` or `resources/css/` |
-| `.github/skills/playwright-accessible-e2e/SKILL.md` | Any change under `tests/`|
+Prefer the latest approved artifact only.
 
----
+## Skills
 
-## 6. General Rules
+Load the skill when modifying its area:
 
-- **Zero Invisible Knowledge:** Every decision, schema change, and requirement must be saved in markdown artifacts (`docs/`), never left exclusively in chat history.
-- **Strict Compliance:** Adhere to `docs/CODING_STANDARDS.md` for all code and tests.
-- **Micro-Commits:** Keep diffs minimal and focused; commit immediately after completing every checked task in `PLANNING.md`.
+| Change | Skill |
+|---|---|
+| PHP / `src/` / `public/index.php` | `.github/skills/php-slim-clean-arch/SKILL.md` |
+| JS / Alpine.js | `.github/skills/js-alpine-reactive/SKILL.md` |
+| Views / Tailwind CSS | `.github/skills/html-tailwind-ui/SKILL.md` |
+| Tests | `.github/skills/playwright-accessible-e2e/SKILL.md` |
+
+## Implementation
+
+Follow:
+
+`docs/CODING_STANDARDS.md`
+
+Before coding:
+
+1. Identify the approved planning task.
+2. Inspect relevant existing code and tests.
+3. Load applicable skills.
+4. Make the smallest change required.
+5. Add/update tests.
+6. Run relevant verification.
+7. Mark the planning task `[x]` only after verification.
+
+Do not implement unapproved functionality or unrelated refactoring.
+
+## Commits
+
+Keep commits small and focused.
+
+Prefer one commit per completed planning task.
+
+Do not mix unrelated refactoring, formatting, dependency updates, or cleanup with feature work.
+
+## Source of Truth
+
+Important decisions MUST exist in repository artifacts, not only in chat.
+
+Use:
+
+- `docs/requirements/` — requirements
+- `docs/design/` — technical design
+- `docs/planning/` — implementation plan
+- `docs/stage-scores.md` — audits
+- `docs/progress.md` — current state
+- `docs/symbol-map.md` — architecture/symbol references
+
+The repository must remain understandable without access to previous chat history.
+
+## Completion
+
+Do not report a feature as complete until:
+
+- Requirements approved
+- Design approved
+- Planning approved
+- Implementation complete
+- Tests pass
+- Planning checklist complete
+- Review complete
+- `docs/progress.md` updated

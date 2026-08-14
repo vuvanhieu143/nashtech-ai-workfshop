@@ -38,3 +38,6 @@ Adopted from Moodle's rigorous Behat testing philosophy, E2E tests in this repos
 await page.locator('//textarea[@name="long_url"]').fill('[https://example.com/long-path](https://example.com/long-path)');
 await page.click('#submit-btn-1 .spinner-overlay');
 await expect(page.locator('.alert-success')).toHaveText('Short link created');
+// Relies on accessible roles, labels, and text matching user perception
+await page.getByLabel('Answer').fill('frog');
+await page.getByRole('radio', { name: 'True' }).click();
