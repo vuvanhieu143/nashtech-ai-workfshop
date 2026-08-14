@@ -23,33 +23,51 @@ if [ -f .env ]; then
     echo ".env already exists — leaving it untouched."
 else
     [ -f .env.example ] || fail ".env.example is missing."
+
     cp .env.example .env
+
     echo "Created .env from .env.example."
     echo "Configure OAuth2 values before testing login."
 fi
 
-step "Installing PHP dependencies"
-
-docker compose run --rm --no-deps app \
-    composer install \
-    --prefer-dist \
-    --no-interaction
-
-step "Installing frontend dependencies"
-
-npm ci
-
-step "Installing Playwright browsers"
-
-npx playwright install
-
-step "Building frontend assets"
-
-npm run build
-
 step "Building application image"
 
 docker compose build
+
+step "Installing PHP dependencies"
+
+if [ -f composer.lock ]; then
+    docker compose run --rm --no-deps app \
+        composer install \
+        --prefer-dist \
+        --no-interaction
+else
+    echo "composer.lock not found — skipping Composer install."
+    echo "Run composer update/install when PHP dependencies are introduced."
+fi
+
+if [ -f package-lock.json ]; then
+    step "Installing frontend dependencies"
+
+    npm ci
+else
+    echo "package-lock.json not found — skipping npm ci."
+    echo "Run npm install when frontend dependencies are introduced."
+fi
+
+if [ -f package.json ] && [ -f package-lock.json ]; then
+    step "Installing Playwright browsers"
+
+    npx playwright install
+fi
+
+if [ -f resources/css/app.css ] && [ -f resources/js/app.js ]; then
+    step "Building frontend assets"
+
+    npm run build
+else
+    echo "Frontend entry points not found — skipping frontend build."
+fi
 
 step "Starting application"
 
@@ -84,6 +102,7 @@ printf '%s\n' '  Setup complete'
 printf '%s\n' '  http://localhost:8080'
 printf '%s\n' '====================================='
 printf '\n'
+
 printf '%s\n' 'Useful commands:'
 printf '%s\n' '  Logs:    docker compose logs -f app'
 printf '%s\n' '  Stop:    docker compose down'
