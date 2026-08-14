@@ -29,3 +29,21 @@ Layer-specific architecture and naming rules live in `.github/skills/php-slim-cl
 
 - All config via `.env` (see `.env.example`), read through a single config accessor — no `getenv()` calls scattered across the codebase.
 - Never commit `.env` or `database.sqlite`.
+
+## Frontend Dependencies
+
+All frontend runtime and build dependencies must be installed locally through npm.
+
+Do not use CDN-hosted libraries or assets.
+
+Examples of prohibited usage:
+
+- Tailwind CDN
+- Alpine.js CDN
+- JavaScript libraries loaded from `<script src="https://...">`
+- CSS libraries loaded from external URLs
+- External runtime dependencies without a package-lock entry
+
+Use `package.json` and `package-lock.json` for frontend dependencies.
+
+Production pages must work without access to a third-party CDN.
