@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    command: php -S 0.0.0.0:8080 -t public
+    working_dir: /app
+    # No env_file here on purpose: .env is bind-mounted with the project and
+    # read by the app's own config accessor (see docs/CODING_STANDARDS.md),
+    # so `docker compose up` works even before scripts/init.sh creates it.
+    volumes:
+      # Whole project bind-mounted: host edits are live, database.sqlite
+      # persists because it lives inside the mounted directory.
+      - .:/app
+    ports:
+      - "8080:8080"
