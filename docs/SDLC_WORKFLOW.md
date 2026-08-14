@@ -87,6 +87,38 @@ MINIMUM NO   YES
             HUMAN GATE
 ```
 
+### Ralph Ownership
+
+Ralph is an orchestration loop, not an autonomous development persona.
+
+Responsibilities remain with the existing stage agents:
+
+- **Developer** owns implementation and implementation fixes.
+- **Tester** owns verification and verification evidence.
+- **Reviewer** owns code-review findings and review status.
+- **Architect** owns design/planning decisions.
+- **BA** owns requirements decisions.
+
+When a defect is found:
+
+1. Tester records the verification failure.
+2. Ralph determines which existing stage owns the fix.
+3. The work is routed to that existing agent.
+4. The agent fixes only issues within the approved scope.
+5. Tester verifies the fix again.
+6. Reviewer reviews the final implementation.
+
+Ralph must not:
+
+- create a new autonomous development persona;
+- make architecture decisions;
+- change requirements;
+- modify approved design or planning;
+- bypass a stage gate;
+- mark work as accepted.
+
+Human approval remains required at the defined Human Gates.
+
 ### Ralph rules
 
 - Work on **one approved planning task at a time**.
